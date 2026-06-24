@@ -11,6 +11,7 @@ explains; it changes nothing.**
 | Command | Use it to… |
 |---|---|
 | `/start` | Set up the governance system — interview about purpose, stack, and environment, then fill in the template placeholders. |
+| `/doctor` | Run the whole system in one shot — build, run all tests, start the services, and health-check, collecting every failure into a single diagnosis report. |
 | `/vibecode` | Build a feature the right way — research, plan, build, sync the contract, run tests, hand off to review. |
 | `/review` | Review the current diff against the contract, style, and security; run PR-split; open a PR per slice. |
 | `/sync` | Reconcile the docs with the code — grep the real routes/schema/helpers and update whichever artifact has drifted. |
@@ -28,4 +29,6 @@ explains; it changes nothing.**
 | [`.github/Template.md`](../Template.md) | The API & data contract — endpoints, payloads, response/error shapes, schema, helper signatures. |
 | [`.github/Style.md`](../Style.md) | The clean-code guide — naming, functions, error handling, async, security, PR checklist. |
 | [`.github/copilot-instructions.md`](../copilot-instructions.md) | Global rules + hard security boundaries. |
+| [`.github/instructions/`](../instructions/) | Path-scoped rules auto-applied to matching files (e.g. server, web). |
+| [`.github/SECURITY.md`](../SECURITY.md) | Security policy — what to protect and how to report issues. |
 | [`.github/CUSTOMIZING.md`](../CUSTOMIZING.md) | How to adapt this template to a specific codebase. |

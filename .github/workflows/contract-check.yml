@@ -35,8 +35,10 @@ jobs:
 
       - name: List changed files
         id: diff
+        env:
+          BASE_OUT: ${{ steps.base.outputs.ref }}
         run: |
-          BASE="${{ steps.base.outputs.ref }}"
+          BASE="$BASE_OUT"
           if ! git rev-parse --verify "$BASE" >/dev/null 2>&1; then BASE="HEAD~1"; fi
           CHANGED="$(git diff --name-only "$BASE"...HEAD || git diff --name-only HEAD~1 HEAD)"
           echo "Changed files:"; echo "$CHANGED"
@@ -44,12 +46,12 @@ jobs:
 
       - name: Enforce Template.md updates on contract changes
         env:
-          # Pass untrusted PR body through the environment, never inline into the
-          # script — inline ${{ }} interpolation is a shell-injection vector.
+          # Pass untrusted inputs through the environment, never inline into the
+          # script — inline ${{ }} interpolation is a shell-injection vector
+          # (a crafted PR body or filename would otherwise run as code).
           PR_BODY: ${{ github.event.pull_request.body }}
+          CHANGED: ${{ steps.diff.outputs.files }}
         run: |
-          CHANGED="${{ steps.diff.outputs.files }}"
-
           # TODO: set these globs to the files that define your contract & schema.
           contract_touched() {
             echo "$CHANGED" | grep -E '^TODO_PATH_TO_ROUTES/|^TODO_PATH_TO_CLIENT$' \

@@ -1,0 +1,11 @@
+# Normalize line endings so the repo is consistent across OSes.
+# Text files are stored with LF in the repo; Git checks them out natively.
+* text=auto
+
+# Files that MUST stay LF (shell scripts, CI YAML run-blocks, configs).
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.sh    text eol=lf
+*.md    text eol=lf
+.gitignore     text eol=lf
+.gitattributes text eol=lf

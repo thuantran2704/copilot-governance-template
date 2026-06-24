@@ -1,73 +1,180 @@
-# copilot-governance-template
+<div align="center">
 
-A **portable, project-agnostic governance + AI-tooling layer** for VS Code Copilot.
-Lift the `.github/` folder into any repo to get a consistent contract-driven
-workflow: build features the right way, review them against a contract, decide PR
-slices, and keep humans in control of shipping.
+# 🛡️ Copilot Governance Template
 
-This template is the genericized distillation of a working setup. Anything
-project-specific has been replaced with a `TODO:` placeholder or a clearly marked
-fill-in.
+### Drop-in guardrails that make GitHub Copilot ship *your* way — not just *some* way.
 
-## What's inside (`.github/`)
+Copy **one folder** into any repo and get a contract-driven workflow: build
+features the right way, review them against a contract, keep docs and code in sync,
+and stay in control of shipping.
 
-| Path | Purpose | Portable? |
+<br/>
+
+[![VS Code Copilot](https://img.shields.io/badge/VS%20Code-Copilot-007ACC?logo=visualstudiocode&logoColor=white)](https://github.com/features/copilot)
+[![Drop-in](https://img.shields.io/badge/setup-one%20folder-success)](#-quick-start--paste-into-your-terminal)
+[![Artifacts over judgement](https://img.shields.io/badge/design-artifacts%20%3E%20judgement-blueviolet)](#-design-principle-artifacts-not-llm-judgement)
+[![License](https://img.shields.io/badge/license-use%20freely-lightgrey)](#license)
+
+<br/>
+
+`/start` · `/vibecode` · `/review` · `/sync` · `/help`
+
+</div>
+
+---
+
+## ✨ Why you want this
+
+|  | Without it | **With this template** |
 |---|---|---|
-| `Template.md` | The **API & data contract** skeleton — endpoints, payloads, response/error shapes, schema. | Skeleton; fill per project |
-| `Style.md` | Clean-code guide (naming, functions, errors, async, security, PR checklist). | Mostly portable |
-| `copilot-instructions.md` | Global rules + hard security boundaries that tie everything together. | Skeleton; fill per project |
-| `pull_request_template.md` | PR checklist mirroring the contract + style. | Portable |
-| `prompts/vibecode.prompt.md` | `/vibecode` — research-backed feature workflow (plan → build → contract-sync → test → ship). | Portable structure |
-| `prompts/review.prompt.md` | `/review` — review a diff vs. contract/style/security, run PR-split, open PRs. | Portable structure |
-| `prompts/sync.prompt.md` | `/sync` — reconcile docs with code so the artifacts stay ground truth. | Portable |
-| `prompts/start.prompt.md` | `/start` — interview about the project (purpose, stack, environment) and fill in the template placeholders. | Portable |
-| `prompts/help.prompt.md` | `/help` — brief menu of commands, skills, and docs. | Portable |
-| `skills/pr-split/SKILL.md` | Advisory PR-split analyzer (every file → one slice; opens a PR per slice on confirmation). | Portable |
-| `skills/generate-run-tests/SKILL.md` | Generate + run unit tests with the boundaries mocked; never touches secrets. | Adapt to test runner |
-| `instructions/*.instructions.md` | Path-scoped rules (`applyTo` globs). | Example; adapt globs |
-| `workflows/contract-check.yml` | CI: fail on contract drift + run tests. | Adapt paths |
-| `SECURITY.md` | The hard security baseline every layer enforces. | Portable; fill disclosure channel |
-| `CUSTOMIZING.md` | How to adapt this template to a specific codebase. | Portable |
+| 📐 **Consistency** | Copilot guesses your conventions | Reads your contract & style guide every time |
+| 🔒 **Safety** | Secrets & bad SQL slip through | Hard rules + CI gates block them |
+| 🧭 **Drift** | Docs rot, code wanders | Code & docs must change together |
+| 🚢 **Shipping** | Agent merges on a vibe | Plans, reviews, then **asks** before pushing |
 
-> **New here?** Read [`.github/CUSTOMIZING.md`](./.github/CUSTOMIZING.md) to adapt
-> the template, and [`.github/SECURITY.md`](./.github/SECURITY.md) for the security
-> baseline.
+---
 
-## The enforcement ladder (why this layered approach)
+## 🚀 Quick start — paste into your terminal
 
-Agent instructions are **soft** (judgment). Push each rule as far down this ladder
+Run these from the **root of the repo you want to add governance to**. They copy
+the `.github/` folder (commands, skills, contract docs, CI) into your project.
+
+### Windows (PowerShell)
+
+```pwsh
+# 1. Pull the template into a temp folder
+git clone --depth 1 https://github.com/thuantran2704/copilot-governance-template.git "$env:TEMP\cgt"
+
+# 2. Copy the governance layer into your repo
+Copy-Item "$env:TEMP\cgt\.github" -Destination . -Recurse -Force
+
+# 3. Merge the secret-ignoring rules into your .gitignore
+Get-Content "$env:TEMP\cgt\.gitignore" | Add-Content .gitignore
+
+# 4. Clean up
+Remove-Item "$env:TEMP\cgt" -Recurse -Force
+
+# 5. Commit it
+git add .github .gitignore
+git commit -m "chore: add Copilot governance layer"
+```
+
+### macOS / Linux (bash)
+
+```bash
+# 1. Pull the template into a temp folder
+git clone --depth 1 https://github.com/thuantran2704/copilot-governance-template.git /tmp/cgt
+
+# 2. Copy the governance layer into your repo
+cp -R /tmp/cgt/.github .
+
+# 3. Merge the secret-ignoring rules into your .gitignore
+cat /tmp/cgt/.gitignore >> .gitignore
+
+# 4. Clean up
+rm -rf /tmp/cgt
+
+# 5. Commit it
+git add .github .gitignore
+git commit -m "chore: add Copilot governance layer"
+```
+
+> 💡 Starting a brand-new repo instead? On GitHub click **Use this template** →
+> create your repo → clone it. The `.github/` folder is already there.
+
+---
+
+## 🧩 Then: let Copilot fill in the blanks
+
+The template ships with `TODO:` placeholders for anything project-specific. You
+don't have to fill them by hand:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│  1. Open your repo in VS Code with GitHub Copilot           │
+│  2. In Copilot Chat, type  /  → see start vibecode review … │
+│  3. Run  /start  → it interviews you & fills the TODOs       │
+│  4. Run  /help   → see everything you can do                 │
+└─────────────────────────────────────────────────────────────┘
+```
+
+That's it — you're governed. 🎉
+
+---
+
+## 🎯 Design principle: artifacts, not LLM judgement
+
+The whole template is built on one idea: **don't rely on the model to remember the
+rules — write the rules down as artifacts the model (and the build) must obey.**
+
+- **Ground truth lives in files, not in the agent's head.** The contract
+  (`Template.md`), the style guide (`Style.md`), and the hard rules
+  (`copilot-instructions.md`) are checked-in artifacts. The agent reads them every
+  time instead of guessing.
+- **Code and docs must never drift.** Change a route or schema and the matching
+  artifact must change in the *same* diff. `/sync` reconciles them; CI fails the
+  build when they diverge.
+- **Push every rule down the enforcement ladder** (below) so it *fails the build*
+  rather than merely *reminding the agent*. LLM judgement is the weakest layer —
+  use it only for what can't be encoded as an artifact or a check.
+- **Humans stay in control of shipping.** Prompts plan, build, and review, but they
+  ask before they push, split, or merge.
+
+> **Remember one thing:** prefer a file or a check over a polite instruction.
+
+---
+
+## 📦 What you just added (`.github/`)
+
+| Path | What it gives you |
+|---|---|
+| `prompts/start.prompt.md` | `/start` — interview + fill in placeholders |
+| `prompts/vibecode.prompt.md` | `/vibecode` — research → plan → build → test → ship a feature |
+| `prompts/review.prompt.md` | `/review` — review a diff vs. contract/style/security; PR-split |
+| `prompts/sync.prompt.md` | `/sync` — reconcile docs with the real code |
+| `prompts/help.prompt.md` | `/help` — the menu of commands, skills, docs |
+| `skills/pr-split/SKILL.md` | Split a change set into reviewable PR slices |
+| `skills/generate-run-tests/SKILL.md` | Generate + run unit tests with boundaries mocked |
+| `Template.md` | The **API & data contract** (endpoints, payloads, schema) |
+| `Style.md` | The clean-code guide |
+| `copilot-instructions.md` | Global rules + hard security boundaries |
+| `instructions/*.instructions.md` | Path-scoped rules (`applyTo` globs) |
+| `workflows/contract-check.yml` | CI: fail on contract drift + run tests |
+| `SECURITY.md` · `CUSTOMIZING.md` | Security baseline · how to adapt the template |
+
+For deeper setup (turning soft rules into hard CI gates, branch protection, etc.)
+see [SETUP.md](./SETUP.md) and [`.github/CUSTOMIZING.md`](./.github/CUSTOMIZING.md).
+
+---
+
+## 🪜 The enforcement ladder
+
+Agent instructions are **soft** (judgement). Push each rule as far down this ladder
 as you can so it *fails the build* instead of *reminding the agent*:
 
-1. Chat instructions / prompts (soft) — this template.
-2. Linters / formatters (hard, local).
-3. Unit / contract tests (hard, local + CI).
-4. Git hooks — `husky` + `lint-staged`, secret scanning (`gitleaks`).
-5. CI workflows (hard, server-side) — `workflows/contract-check.yml`.
-6. Branch protection / rulesets (unbypassable) — configure in repo settings.
+```text
+        weakest ┌──────────────────────────────────────────┐
+   (judgement)  │ 1 · Chat instructions / prompts  ← here   │
+                │ 2 · Linters / formatters                 │
+                │ 3 · Unit / contract tests                │
+                │ 4 · Git hooks · secret scanning          │
+                │ 5 · CI workflows  ← contract-check.yml   │
+  strongest     │ 6 · Branch protection / rulesets         │
+  (unbypassable)└──────────────────────────────────────────┘
+```
 
 The prompts and skills here are layer 1; `contract-check.yml` is a layer-5 start.
 Add layers 2–4 and 6 per project for stronger guarantees.
 
-## How to adopt in a new repo
+---
 
-1. Copy this `.github/` into the target repo.
-2. Search for `TODO:` and fill in project-specifics (stack, endpoints, schema,
-   file paths, test commands).
-3. Fill `Template.md` with the real contract and `copilot-instructions.md` with
-   the project's one-line pitch + hard rules.
-4. Adjust `instructions/*.instructions.md` `applyTo` globs and
-   `workflows/contract-check.yml` paths to match your tree.
-5. Optionally promote the generic parts to an **org-level `.github` repo** or
-   **reusable workflows** so multiple repos share one source of truth.
+<div align="center">
 
-## Reuse strategies across many projects
+### Built for teams who want Copilot to move fast **and** stay in the lines.
 
-- **Template repository** — mark this repo as a GitHub *template*; new repos start
-  from it.
-- **Org `.github` repo** — a repo named `.github` in your org supplies default
-  community files (PR template, workflows, instructions) to every repo.
-- **Reusable workflows** — keep CI jobs in one repo, call them with
-  `uses: <org>/<repo>/.github/workflows/<file>.yml@main`.
+`/start` to set up · `/vibecode` to build · `/review` before you ship
+
+</div>
 
 ## License
 
