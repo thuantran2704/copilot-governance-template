@@ -11,6 +11,8 @@ every `TODO:` placeholder across `.github/`. This sets up the *agentic system*
 run the app.
 
 ## Step 0 — Guardrails (apply the whole time)
+- **Review [`.github/PHILOSOPHY.md`](../PHILOSOPHY.md) first.** Work artifact-based
+  and research-based; ask when unsure instead of guessing.
 - **Ask, don't assume.** Never invent a stack, framework, schema, or purpose. If an
   answer is missing or unclear, ask a follow-up before editing files.
 - **Never read, print, echo, or commit secrets.** Don't ask for credentials,
@@ -65,6 +67,14 @@ asking cold.
 - Key endpoints (method + route + purpose).
 - The project's structured error shape (e.g. `{ "error": "message" }`).
 
+**Philosophy (recommended)**
+- The template ships a default [`.github/PHILOSOPHY.md`](../PHILOSOPHY.md):
+  *artifact-based, research-based, ask-when-unsure — not model judgement.* Recommend
+  the user keep it, and ask if they want to **add any project-specific principles**
+  (e.g. "never break the re-embed trigger", "accessibility is non-negotiable",
+  "prefer composition over inheritance"). Capture these to append — don't replace the
+  three core pillars unless the user explicitly asks.
+
 ## Step 3 — Confirm before editing
 Summarize the collected answers back to the user in a short list and ask them to
 confirm or correct. Do not proceed until they approve.
@@ -75,11 +85,12 @@ Using the confirmed answers, resolve every `TODO:` and `{{PLACEHOLDER}}` in:
 | File | Fill in with |
 |---|---|
 | `copilot-instructions.md` | Project one-liner, the never-cut thing, the stack, and the **Ground truth** concept→path map (routes, schema, helpers, client, tests). |
+| `PHILOSOPHY.md` | Keep the three core pillars; append any project-specific principles the user named. Only rewrite a pillar if they explicitly ask. |
 | `Template.md` | Conventions, schema, endpoints, sample payloads, helper signatures, error shape. |
 | `Style.md` | Any language/runtime-specific naming or formatting that differs from the default. |
 | `prompts/vibecode.prompt.md` | Stack references and the boundary modules to mock. |
 | `prompts/help.prompt.md` | Adjust command descriptions if they changed. |
-| `skills/generate-run-tests/SKILL.md` | Test runner + the exact boundary modules to mock. |
+| `skills/unit-test-generator/SKILL.md` | Test runner + the exact boundary modules to mock. |
 | `instructions/*.instructions.md` | `applyTo` globs for the real server/web source paths. |
 | `workflows/contract-check.yml` | Contract/schema globs + install and test commands. |
 

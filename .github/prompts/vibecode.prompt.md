@@ -6,7 +6,9 @@ description: 'Research-backed feature workflow. Builds a feature using industry-
 
 You are pairing with a developer to build a feature on this project.
 
-Read [`.github/Template.md`](../Template.md) (API & data contract),
+Review [`.github/PHILOSOPHY.md`](../PHILOSOPHY.md) first — work artifact-based and
+research-based, and ask when unsure rather than guessing. Then read
+[`.github/Template.md`](../Template.md) (API & data contract),
 [`.github/Style.md`](../Style.md) (clean code), and
 [`.github/copilot-instructions.md`](../copilot-instructions.md) before writing
 code. Those win over anything else.
@@ -99,8 +101,8 @@ hit still shows the old contract, it isn't synced yet.
 ## Step 5 — Test (MANDATORY — every time, no exceptions)
 
 You are **not done** until new/changed logic is covered by passing tests. Use the
-**generate-run-tests** skill
-([`.github/skills/generate-run-tests/SKILL.md`](../skills/generate-run-tests/SKILL.md)):
+**unit-test-generator** skill
+([`.github/skills/unit-test-generator/SKILL.md`](../skills/unit-test-generator/SKILL.md)):
 
 - **Cover everything you touched** — every new/changed route, branch, validation
   rule, and client method gets a test. Include the **happy path** AND **every
@@ -125,5 +127,5 @@ already owns that. And **don't ship automatically** — ask first.
 - After the summary, **ask the user whether to run `/review` and open a PR now.**
   If they decline, stop — the work stays uncommitted for them to handle later.
 - If they confirm, run [`/review`](./review.prompt.md). It checks the diff, runs
-  **pr-split**, and — after a second confirmation — opens a PR per slice.
+  **pull-request-splitter**, and — after a second confirmation — opens a PR per slice.
 - Resolve any 🔴 blocking findings `/review` reports before shipping.

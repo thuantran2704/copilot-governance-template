@@ -17,7 +17,7 @@ and stay in control of shipping.
 
 <br/>
 
-`/start` · `/vibecode` · `/review` · `/sync` · `/help`
+`/start` · `/doctor` · `/forge` · `/vibecode` · `/review` · `/sync` · `/help`
 
 </div>
 
@@ -129,14 +129,17 @@ rules — write the rules down as artifacts the model (and the build) must obey.
 | Path | What it gives you |
 |---|---|
 | `prompts/start.prompt.md` | `/start` — interview + fill in placeholders |
+| `prompts/doctor.prompt.md` | `/doctor` — build, run, test & health-check the whole system |
+| `prompts/forge.prompt.md` | `/forge` — author a new skill or agent, philosophy-first |
 | `prompts/vibecode.prompt.md` | `/vibecode` — research → plan → build → test → ship a feature |
 | `prompts/review.prompt.md` | `/review` — review a diff vs. contract/style/security; PR-split |
 | `prompts/sync.prompt.md` | `/sync` — reconcile docs with the real code |
 | `prompts/help.prompt.md` | `/help` — the menu of commands, skills, docs |
-| `skills/pr-split/SKILL.md` | Split a change set into reviewable PR slices |
-| `skills/generate-run-tests/SKILL.md` | Generate + run unit tests with boundaries mocked |
+| `skills/pull-request-splitter/SKILL.md` | Split a change set into reviewable PR slices |
+| `skills/unit-test-generator/SKILL.md` | Generate + run unit tests with boundaries mocked |
 | `Template.md` | The **API & data contract** (endpoints, payloads, schema) |
 | `Style.md` | The clean-code guide |
+| `PHILOSOPHY.md` | The core principle every command reviews first |
 | `copilot-instructions.md` | Global rules + hard security boundaries |
 | `instructions/*.instructions.md` | Path-scoped rules (`applyTo` globs) |
 | `workflows/contract-check.yml` | CI: fail on contract drift + run tests |

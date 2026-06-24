@@ -1,9 +1,9 @@
 ---
-name: pr-split
+name: pull-request-splitter
 description: Advisory PR split analyzer. Use during /review or before opening a PR to decide whether the current change set should ship as one PR or be split/stacked into smaller reviewable slices. Classifies every changed file into a slice (no file left unassigned), returns a JSON decision (APPROVE | SLICE_PLAN | SKIPPED), and then offers to open a new PR per slice (branch + commit + push + gh pr create) — only after the human confirms. Advisory by default; never branches, pushes, or opens a PR without explicit confirmation, and never pushes straight to the default branch.
 ---
 
-# pr-split — advisory PR split analyzer
+# pull-request-splitter — advisory PR split analyzer
 
 Decide whether the current change set should remain one PR or be split/stacked into
 smaller reviewable slices. **Advisory only by default**: do not modify files, create

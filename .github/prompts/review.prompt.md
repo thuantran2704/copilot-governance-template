@@ -8,7 +8,9 @@ Review the current diff (staged/unstaged changes, or the files the user points t
 against the project's universal interface. **Do not change code** unless the user
 explicitly asks — report findings.
 
-Read first: [`.github/Template.md`](../Template.md), [`.github/Style.md`](../Style.md),
+Read first: [`.github/PHILOSOPHY.md`](../PHILOSOPHY.md) (judge against artifacts and
+evidence, not vibes), [`.github/Template.md`](../Template.md),
+[`.github/Style.md`](../Style.md),
 [`.github/copilot-instructions.md`](../copilot-instructions.md), and the scoped
 rules in [`.github/instructions/`](../instructions/).
 
@@ -53,11 +55,11 @@ on changed lines with just enough surrounding context to judge correctness.
 
 4. **Tests.**
    - New/changed logic has a unit test (happy path + an error path).
-   - Suggest the generate-run-tests skill if missing.
+   - Suggest the unit-test-generator skill if missing.
 
 5. **PR split (advisory).**
-   - Run the **pr-split** skill
-     ([`.github/skills/pr-split/SKILL.md`](../skills/pr-split/SKILL.md)) over the
+   - Run the **pull-request-splitter** skill
+     ([`.github/skills/pull-request-splitter/SKILL.md`](../skills/pull-request-splitter/SKILL.md)) over the
      change set to decide one PR vs. split/stacked slices. Assign **every** changed
      file to exactly one slice — none left out.
    - Report the slice plan as part of the review output.
@@ -80,5 +82,6 @@ Group findings by severity and cite file + line:
 
 End with a one-line verdict: **ready to merge** / **needs changes**. If the user
 asks you to fix the findings, apply the smallest in-style changes and re-run the
-relevant tests. After reporting, offer to open a new PR per slice (pr-split rules
-apply — confirm first; never push to the default branch directly).
+relevant tests. After reporting, offer to open a new PR per slice
+(pull-request-splitter rules apply — confirm first; never push to the default
+branch directly).

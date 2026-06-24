@@ -3,6 +3,9 @@
 These instructions apply to all AI-assisted work in this repository. They tie
 together the project's universal interface:
 
+- **[`.github/PHILOSOPHY.md`](./PHILOSOPHY.md)** — the core principle to review
+  before any command or non-trivial change: artifact-based, research-based,
+  ask-when-unsure (never model judgement). When in doubt, this governs.
 - **[`.github/Template.md`](./Template.md)** — the API & data contract (endpoints,
   payloads, querying/usage standards). Read it before adding or calling any
   endpoint or data operation.
@@ -41,7 +44,7 @@ Keep this map current. If a path moves, update it here first.
   `/sync` if you suspect they already have.
 - Validate external input at the boundary; return a structured error
   (`{ error: "..." }` or your convention), never an unhandled 500/stack.
-- Add a unit test for new/changed logic (use the **generate-run-tests** skill).
+- Add a unit test for new/changed logic (use the **unit-test-generator** skill).
 
 ## Security boundaries (hard rules — never violate)
 - **Never read, print, echo, commit, or paste secrets.** Env files, `*.key`,
@@ -63,5 +66,5 @@ Keep this map current. If a path moves, update it here first.
 - `/review` — review a diff against the contract, style, and security; run PR-split.
 - `/sync` — reconcile the docs with the code so the artifacts stay ground truth.
 - `/help` — brief menu of commands, skills, and docs.
-- **generate-run-tests** skill — generate and run unit tests.
-- **pr-split** skill — decide PR slices and open a PR per slice (on confirmation).
+- **unit-test-generator** skill — generate and run unit tests.
+- **pull-request-splitter** skill — decide PR slices and open a PR per slice (on confirmation).

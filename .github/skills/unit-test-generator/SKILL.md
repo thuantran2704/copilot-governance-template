@@ -1,9 +1,9 @@
 ---
-name: generate-run-tests
+name: unit-test-generator
 description: Generate and run unit tests for new or changed logic. Use when adding or changing route/handler logic, validation, data-access wrappers, or client/components, and you need fast, isolated tests. Covers happy path plus validation/error cases, mocks the data layer and network, and never touches real secrets or live systems. Adapt the runner and mock targets to your stack.
 ---
 
-# generate-run-tests — unit tests
+# unit-test-generator — unit tests
 
 Generate and run fast, isolated unit tests for new or changed logic. Tests must not
 hit the real database, external services, or read secret/env files. Mock the

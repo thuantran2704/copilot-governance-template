@@ -2,7 +2,7 @@
 
 The hard security rules this template assumes. They appear across
 `copilot-instructions.md`, `Style.md`, the `/vibecode` and `/review` prompts, and
-the `pr-split` skill so the agent applies them at every stage. Keep them in sync if
+the `pull-request-splitter` skill so the agent applies them at every stage. Keep them in sync if
 you edit one.
 
 ## Hard rules (never violate)

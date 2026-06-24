@@ -25,7 +25,7 @@ Search the project for `TODO:` and resolve each one. At minimum:
 - `.github/copilot-instructions.md` — project one-liner, stack, hard rules.
 - `.github/Template.md` — real schema, endpoints, payloads, error conventions.
 - `.github/prompts/start.prompt.md` — install/test/run commands and URLs.
-- `.github/skills/generate-run-tests/SKILL.md` — test runner + boundary modules to mock.
+- `.github/skills/unit-test-generator/SKILL.md` — test runner + boundary modules to mock.
 - `.github/instructions/*.instructions.md` — `applyTo` globs for your source paths.
 - `.github/workflows/contract-check.yml` — contract/schema globs + install/test commands.
 - `.github/SECURITY.md` — your private vulnerability-disclosure channel.

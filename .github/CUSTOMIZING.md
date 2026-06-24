@@ -13,7 +13,7 @@ Search the whole `.github/` folder for `TODO:` and resolve each one:
 | `Style.md` | Language/runtime-specific formatting and naming if they differ. |
 | `prompts/start.prompt.md` | Prereqs, install/test/run commands, health check, URLs. |
 | `prompts/vibecode.prompt.md` | Stack references and the boundary modules to mock. |
-| `skills/generate-run-tests/SKILL.md` | Test runner + the exact boundary modules to mock. |
+| `skills/unit-test-generator/SKILL.md` | Test runner + the exact boundary modules to mock. |
 | `instructions/*.instructions.md` | `applyTo` globs for your server/web paths. |
 | `workflows/contract-check.yml` | File globs for contract/schema; install + test commands. |
 

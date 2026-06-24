@@ -104,7 +104,7 @@ Hard rules, not suggestions. See also [`copilot-instructions.md`](./copilot-inst
 
 - [ ] Code matches `Template.md` (routes, payloads, usage standard).
 - [ ] No secrets, no hardcoded credentials, parameterized queries.
-- [ ] New/changed logic has a unit test (use the `generate-run-tests` skill).
+- [ ] New/changed logic has a unit test (use the `unit-test-generator` skill).
 - [ ] Only the files the task needed are changed.
 - [ ] Loading / empty / error states handled (frontend).
 - [ ] The app still builds and runs clean.

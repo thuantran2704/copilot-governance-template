@@ -17,7 +17,7 @@
 - [ ] Explicit credentials only; nothing hardcoded
 
 ## Tests
-- [ ] Unit test added for new/changed logic (generate-run-tests skill)
+- [ ] Unit test added for new/changed logic (unit-test-generator skill)
 - [ ] Test suite passes in affected package(s)
 
 ## How I verified
