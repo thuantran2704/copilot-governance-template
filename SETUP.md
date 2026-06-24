@@ -32,7 +32,7 @@ Search the project for `TODO:` and resolve each one. At minimum:
 
 ## Verify the commands load in VS Code
 1. Open the project in VS Code.
-2. In Copilot Chat, type `/` — you should see `start`, `vibecode`, `review`, `help`.
+2. In Copilot Chat, type `/` — you should see `start`, `vibecode`, `review`, `sync`, `help`.
 3. Run `/help` to confirm the menu renders and links resolve.
 
 ## Turn soft rules into hard gates (recommended)
@@ -50,6 +50,8 @@ Agent prompts are advisory. Add real enforcement (see the ladder in
 - Run `/review` on a small diff → it should cite the contract and offer a PR split.
 - Run `/vibecode` on a tiny feature → it should plan, test, and **ask before**
   shipping.
+- Run `/sync` → it should grep the real routes/schema and report any doc drift
+  against `Template.md` and the Ground truth map.
 
 ## Publish this template to your own GitHub (one-time, for the template repo itself)
 ```pwsh

@@ -22,11 +22,15 @@ jobs:
 
       - name: Determine the base ref
         id: base
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE_SHA: ${{ github.event.before }}
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            echo "ref=origin/${{ github.base_ref }}" >> "$GITHUB_OUTPUT"
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            echo "ref=origin/$BASE_REF" >> "$GITHUB_OUTPUT"
           else
-            echo "ref=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+            echo "ref=$BEFORE_SHA" >> "$GITHUB_OUTPUT"
           fi
 
       - name: List changed files
@@ -39,6 +43,10 @@ jobs:
           { echo "files<<EOF"; echo "$CHANGED"; echo "EOF"; } >> "$GITHUB_OUTPUT"
 
       - name: Enforce Template.md updates on contract changes
+        env:
+          # Pass untrusted PR body through the environment, never inline into the
+          # script — inline ${{ }} interpolation is a shell-injection vector.
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           CHANGED="${{ steps.diff.outputs.files }}"
 
@@ -55,15 +63,14 @@ jobs:
           }
 
           # Escape hatch: put "Contract: unchanged" in the PR body for pure refactors.
-          BODY="${{ github.event.pull_request.body }}"
-          if echo "$BODY" | grep -qi 'Contract: unchanged'; then
+          if echo "$PR_BODY" | grep -qi 'Contract: unchanged'; then
             echo "::notice::'Contract: unchanged' found in PR body — skipping drift check."
             exit 0
           fi
 
           fail=0
-          if contract_touched && ! template_updated; then
-            echo "::error::Contract files changed but .github/Template.md was not updated."
+          if (contract_touched || schema_touched) && ! template_updated; then
+            echo "::error::Contract or schema files changed but .github/Template.md was not updated."
             fail=1
           fi
           exit $fail
@@ -78,4 +85,4 @@ jobs:
       # - run: npm ci || npm install
       # - run: npm test
       - name: Tests
-        run: echo "TODO: run the project's test suite here"
+        run: echo "Replace this step with the project's test suite"

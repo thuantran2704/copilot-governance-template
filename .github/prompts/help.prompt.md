@@ -13,6 +13,7 @@ explains; it changes nothing.**
 | `/start` | Set up the governance system — interview about purpose, stack, and environment, then fill in the template placeholders. |
 | `/vibecode` | Build a feature the right way — research, plan, build, sync the contract, run tests, hand off to review. |
 | `/review` | Review the current diff against the contract, style, and security; run PR-split; open a PR per slice. |
+| `/sync` | Reconcile the docs with the code — grep the real routes/schema/helpers and update whichever artifact has drifted. |
 | `/help` | Show this menu. |
 
 ## Skills (auto-used by the agent, or ask for them by name)

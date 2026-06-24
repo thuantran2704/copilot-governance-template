@@ -19,9 +19,9 @@ Search the whole `.github/` folder for `TODO:` and resolve each one:
 
 ## 2. Tell the agent where things live
 The prompts reference "the shared client module", "the data-access helper", "the
-schema source" generically. Either rename those to your real paths in each prompt,
-or (better) add one short section to `copilot-instructions.md` mapping concept →
-path, e.g.:
+schema source" generically. Fill in the **Ground truth** concept→path map in
+`copilot-instructions.md` so the prompts resolve to concrete files without editing
+each one:
 
 ```
 - Shared API client: src/web/api.ts
@@ -31,7 +31,9 @@ path, e.g.:
 - Tests: **/*.test.ts (Vitest)
 ```
 
-Then the prompts resolve to concrete files without editing each one.
+This map loads automatically every turn, so every agent works from the same ground
+truth. When a path moves, update it here first — and run `/sync` to catch docs that
+have drifted from the code.
 
 ## 3. Decide how hard each rule is enforced (the ladder)
 Agent prompts are **soft** (judgment). Push each rule down until it *fails the

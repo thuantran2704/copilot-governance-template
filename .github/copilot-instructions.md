@@ -19,10 +19,26 @@ must never be cut (the "pitch") so the agent protects it.
 - TODO: Web/client (framework) and its source folder.
 - TODO: Data store / external services.
 
+## Ground truth (concept → path)
+Agents work best from ground truth. These are the real files behind the generic
+terms the prompts use — resolve to these instead of guessing:
+- TODO: Routes / endpoints source — e.g. `src/server/routes/**`
+- TODO: Schema / migration source — e.g. `db/schema.sql`
+- TODO: Shared data-access helper — e.g. `src/server/db.ts`
+- TODO: Shared API client (web) — e.g. `src/web/api.ts`
+- TODO: Tests — e.g. `**/*.test.ts`
+
+Keep this map current. If a path moves, update it here first.
+
 ## Always
 - Follow `Template.md` for any endpoint/data shape and `Style.md` for code style.
 - Keep changes small, modular, and scoped to the task. Don't refactor unrelated
   code or add features that weren't requested.
+- **Keep the artifacts as ground truth.** If you change code that a doc describes
+  (a route, payload, response/error shape, schema, or shared helper signature),
+  update that doc in the **same change** — `Template.md`, this file's Ground truth
+  map, and any affected `instructions/*`. Code and docs must never drift. Run
+  `/sync` if you suspect they already have.
 - Validate external input at the boundary; return a structured error
   (`{ error: "..." }` or your convention), never an unhandled 500/stack.
 - Add a unit test for new/changed logic (use the **generate-run-tests** skill).
@@ -45,6 +61,7 @@ must never be cut (the "pitch") so the agent protects it.
 - `/start` — interview about the project (purpose, stack, environment) and fill in the template placeholders.
 - `/vibecode` — research-backed feature workflow on this stack.
 - `/review` — review a diff against the contract, style, and security; run PR-split.
+- `/sync` — reconcile the docs with the code so the artifacts stay ground truth.
 - `/help` — brief menu of commands, skills, and docs.
 - **generate-run-tests** skill — generate and run unit tests.
 - **pr-split** skill — decide PR slices and open a PR per slice (on confirmation).
