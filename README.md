@@ -19,7 +19,7 @@ fill-in.
 | `pull_request_template.md` | PR checklist mirroring the contract + style. | Portable |
 | `prompts/vibecode.prompt.md` | `/vibecode` — research-backed feature workflow (plan → build → contract-sync → test → ship). | Portable structure |
 | `prompts/review.prompt.md` | `/review` — review a diff vs. contract/style/security, run PR-split, open PRs. | Portable structure |
-| `prompts/start.prompt.md` | `/start` — bootstrap the dev environment. | Skeleton; fill per project |
+| `prompts/start.prompt.md` | `/start` — interview about the project (purpose, stack, environment) and fill in the template placeholders. | Portable |
 | `prompts/help.prompt.md` | `/help` — brief menu of commands, skills, and docs. | Portable |
 | `skills/pr-split/SKILL.md` | Advisory PR-split analyzer (every file → one slice; opens a PR per slice on confirmation). | Portable |
 | `skills/generate-run-tests/SKILL.md` | Generate + run unit tests with the boundaries mocked; never touches secrets. | Adapt to test runner |

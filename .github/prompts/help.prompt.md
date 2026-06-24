@@ -10,7 +10,7 @@ explains; it changes nothing.**
 ## Slash commands
 | Command | Use it to… |
 |---|---|
-| `/start` | Bootstrap the dev environment — verify prereqs, install deps, run tests, start the app. |
+| `/start` | Set up the governance system — interview about purpose, stack, and environment, then fill in the template placeholders. |
 | `/vibecode` | Build a feature the right way — research, plan, build, sync the contract, run tests, hand off to review. |
 | `/review` | Review the current diff against the contract, style, and security; run PR-split; open a PR per slice. |
 | `/help` | Show this menu. |
