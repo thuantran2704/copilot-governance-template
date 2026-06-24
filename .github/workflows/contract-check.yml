@@ -1,0 +1,81 @@
+name: contract-check
+
+# Triggers on every PR and on pushes to the default branch. Fails when code that
+# defines the API/data contract changes without a matching update to
+# .github/Template.md. Also runs the unit tests.
+#
+# TODO: Adjust the file globs in `contract_touched`/`schema_touched` to match this
+# project's tree, and the test job's install/test commands to match its tooling.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  contract-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need history to diff against the base
+
+      - name: Determine the base ref
+        id: base
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "ref=origin/${{ github.base_ref }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: List changed files
+        id: diff
+        run: |
+          BASE="${{ steps.base.outputs.ref }}"
+          if ! git rev-parse --verify "$BASE" >/dev/null 2>&1; then BASE="HEAD~1"; fi
+          CHANGED="$(git diff --name-only "$BASE"...HEAD || git diff --name-only HEAD~1 HEAD)"
+          echo "Changed files:"; echo "$CHANGED"
+          { echo "files<<EOF"; echo "$CHANGED"; echo "EOF"; } >> "$GITHUB_OUTPUT"
+
+      - name: Enforce Template.md updates on contract changes
+        run: |
+          CHANGED="${{ steps.diff.outputs.files }}"
+
+          # TODO: set these globs to the files that define your contract & schema.
+          contract_touched() {
+            echo "$CHANGED" | grep -E '^TODO_PATH_TO_ROUTES/|^TODO_PATH_TO_CLIENT$' \
+              >/dev/null 2>&1
+          }
+          schema_touched() {
+            echo "$CHANGED" | grep -E '^TODO_PATH_TO_SCHEMA$' >/dev/null 2>&1
+          }
+          template_updated() {
+            echo "$CHANGED" | grep -E '^\.github/Template\.md$' >/dev/null 2>&1
+          }
+
+          # Escape hatch: put "Contract: unchanged" in the PR body for pure refactors.
+          BODY="${{ github.event.pull_request.body }}"
+          if echo "$BODY" | grep -qi 'Contract: unchanged'; then
+            echo "::notice::'Contract: unchanged' found in PR body — skipping drift check."
+            exit 0
+          fi
+
+          fail=0
+          if contract_touched && ! template_updated; then
+            echo "::error::Contract files changed but .github/Template.md was not updated."
+            fail=1
+          fi
+          exit $fail
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # TODO: set up your runtime and run the test suite(s).
+      # - uses: actions/setup-node@v4
+      #   with: { node-version: 20 }
+      # - run: npm ci || npm install
+      # - run: npm test
+      - name: Tests
+        run: echo "TODO: run the project's test suite here"
